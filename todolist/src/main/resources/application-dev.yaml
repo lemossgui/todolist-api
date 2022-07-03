@@ -1,0 +1,26 @@
+spring:
+  error:
+    whitelabel:
+      enabled: false
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/todolist?ApplicationName=Todolist - API - Desenvolvimento
+    username: postgres
+    password: admin
+    platform:
+    hikari:
+      pool-name: Todolist - API - Desenvolvimento
+      connection-timeout: 60000
+      max-lifetime: 300000
+      maximum-pool-size: 5
+      minimum-idle: 5
+  jpa:
+    database: POSTGRESQL
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: false
+        format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    show-sql: true

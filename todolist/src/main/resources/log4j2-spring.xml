@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO" monitorInterval="30">
+    <Properties>
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss} %p %C{1.} [%t] %m%n</Property>
+        <Property name="LOG_FILE">todolist-api</Property>
+        <Property name="LOG_PATH">./logs</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="%style{%d{ISO8601}}{red} %highlight{%-5level }[%style{%t}{bright,blue}] %style{%C{1.}}{bright,yellow}: %msg%n%throwable" />
+        </Console>
+
+        <RollingFile name="RollingFile"
+                     fileName="${LOG_PATH}/${LOG_FILE}.log"
+                     filePattern="${LOG_PATH}/$${date:yyyy-MM}/${LOG_FILE}-%d{-dd-MMMM-yyyy}-%i.log.gz">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+            <Policies>
+                <SizeBasedTriggeringPolicy
+                        size="10 MB" />
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy
+                    max="10" />
+        </RollingFile>
+
+        <RollingFile name="RollingFileError"
+                     fileName="${LOG_PATH}/${LOG_FILE}-error.log"
+                     filePattern="${LOG_PATH}/$${date:yyyy-MM}/${LOG_FILE}-error-%d{-dd-MMMM-yyyy}-%i.log.gz">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+            <Policies>
+                <SizeBasedTriggeringPolicy
+                        size="10 MB" />
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy
+                    max="10" />
+        </RollingFile>
+
+        <RollingFile name="RollingFileConnectionPool"
+                     fileName="${LOG_PATH}/${LOG_FILE}-connection-pool.log"
+                     filePattern="${LOG_PATH}/$${date:yyyy-MM}/${LOG_FILE}-connection-pool-%d{-dd-MMMM-yyyy}-%i.log.gz">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+            <Policies>
+                <SizeBasedTriggeringPolicy
+                        size="10 MB" />
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy
+                    max="10" />
+        </RollingFile>
+
+        <RollingFile name="RollingFileConnectionConfig"
+                     fileName="${LOG_PATH}/${LOG_FILE}-connection-config.log"
+                     filePattern="${LOG_PATH}/$${date:yyyy-MM}/${LOG_FILE}-connection-config-%d{-dd-MMMM-yyyy}-%i.log.gz">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+            <Policies>
+                <SizeBasedTriggeringPolicy
+                        size="1 MB" />
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy
+                    max="1" />
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+
+        <Logger name="com.example.personalapp" additivity="false">
+            <AppenderRef ref="RollingFile" />
+            <AppenderRef ref="Console" />
+        </Logger>
+
+        <Logger name="com.zaxxer.hikari.pool" level="debug" additivity="false">
+            <AppenderRef ref="RollingFileConnectionPool" level="debug" />
+            <AppenderRef ref="Console" />
+        </Logger>
+
+        <Logger name="com.zaxxer.hikari.HikariConfig" level="debug" additivity="false">
+            <AppenderRef ref="RollingFileConnectionConfig" level="debug" />
+            <AppenderRef ref="Console" />
+        </Logger>
+
+        <Root level="info">
+            <AppenderRef ref="RollingFileError" level="error" />
+            <AppenderRef ref="Console" />
+        </Root>
+
+    </Loggers>
+</Configuration>

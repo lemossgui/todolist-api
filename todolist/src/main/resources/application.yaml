@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: dev
+
+server:
+  port: 8080
+  thymeleaf:
+    cache: false
+    enabled: true
+  tomcat:
+    max-threads: 5
+  compression:
+    enabled: true
+    mime-types: application/json
+    min-response-size: 1
+
+jwt:
+  expiration-days: 30
+  secret: 2!2_One*Ring#To$Rule%Them-All_7+9
