@@ -11,4 +11,15 @@ interface UserStorage : JpaRepository<UserEntity, Long> {
             "WHERE u.username = :username " +
             "AND u.password = :password")
     fun findByUsernameAndPassword(username: String, password: String): Optional<UserEntity>
+
+    @Query("SELECT e " +
+            "FROM UserEntity e " +
+            "WHERE e.username = :username")
+    fun existsByUsername(username: String): Boolean
+
+    @Query("SELECT e " +
+            "FROM UserEntity e " +
+            "WHERE e.username = :username " +
+            "AND e.id != :id")
+    fun existsByUsernameAndIdDiff(username: String, id: Long): Boolean
 }

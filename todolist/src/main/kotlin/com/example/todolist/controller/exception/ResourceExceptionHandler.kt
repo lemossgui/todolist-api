@@ -47,4 +47,9 @@ class ResourceExceptionHandler {
     fun forbiddenException(e: ForbiddenException, request: HttpServletRequest): ResponseEntity<ResponseModel<String>>? {
         return getResponseFailure(HttpStatus.FORBIDDEN, e.message.toString())
     }
+
+    @ExceptionHandler(DuplicateEntityException::class)
+    fun duplicateEntityException(e: DuplicateEntityException, request: HttpServletRequest): ResponseEntity<ResponseModel<String>>? {
+        return getResponseFailure(HttpStatus.CONFLICT, e.message.toString())
+    }
 }

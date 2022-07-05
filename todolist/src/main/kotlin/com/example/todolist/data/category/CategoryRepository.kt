@@ -11,4 +11,7 @@ abstract class CategoryRepository(
 ) : AbstractCrudRepositoryImpl<CategoryModel, CategoryEntity>(
         mapper = mapper,
         storage = storage,
-)
+) {
+    abstract fun existsByDescription(description: String): Boolean
+    abstract fun existsByDescriptionAndIdDiff(description: String, id: Long): Boolean
+}

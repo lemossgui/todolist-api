@@ -13,4 +13,6 @@ abstract class UserRepository(
         storage = storage,
 ) {
     abstract fun findByUsernameAndPassword(username: String, password: String): UserModel
+    abstract fun existsByUsername(username: String): Boolean
+    abstract fun existsByUsernameAndIdDiff(username: String, id: Long): Boolean
 }

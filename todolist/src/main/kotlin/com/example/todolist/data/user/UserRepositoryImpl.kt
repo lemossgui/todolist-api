@@ -18,4 +18,12 @@ class UserRepositoryImpl(
         if (found.isPresent) return mapper.mapToModel(found.get())
         else throw NotFoundException("Usuário não encontrado. Nome de usuário ou senha incorretos")
     }
+
+    override fun existsByUsername(username: String): Boolean {
+        return storage.existsByUsername(username)
+    }
+
+    override fun existsByUsernameAndIdDiff(username: String, id: Long): Boolean {
+        return storage.existsByUsernameAndIdDiff(username, id)
+    }
 }

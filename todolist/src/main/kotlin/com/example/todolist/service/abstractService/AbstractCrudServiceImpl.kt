@@ -4,7 +4,7 @@ import com.example.todolist.data.abstractRepository.AbstractCrudRepository
 import com.example.todolist.service.abstractModel.AbstractModel
 
 abstract class AbstractCrudServiceImpl<M : AbstractModel>(
-        var repository: AbstractCrudRepository<M>,
+        private val repository: AbstractCrudRepository<M>,
 ) : AbstractCrudService<M> {
 
     override fun save(model: M): M {
